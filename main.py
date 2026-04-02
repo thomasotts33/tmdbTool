@@ -36,32 +36,41 @@ def build_route(endpoint):
     return picked_route
 
 def process_data(picked_route):
-    response = requests.get(picked_route, params)
-    movies = response.json()
-    my_movies = []
+    try:
 
-    for movie in movies["results"]:
-        movie_title = movie["title"]
-        my_movies.append(movie_title)
+        response = requests.get(picked_route, params)
+        movies = response.json()
+        my_movies = []
 
-    return my_movies
+        for movie in movies["results"]:
+            movie_title = movie["title"]
+            my_movies.append(movie_title)
+
+        return my_movies
+    except:
+        return -1
 
 def send_data(my_movies):
     print("\n---Results---\n--------------------------\n")
     for index, movie in enumerate(my_movies, start=1):
         print(f"{index}. {movie}")
     print("\n--------------------------\n")
+    
 
 while True:
     endpoint = show_menu()
 
     if (endpoint is None):
             break 
-
     if (endpoint == "invalid"):
             continue 
 
     complete_url = build_route(endpoint)
     my_movies = process_data(complete_url)
-    send_data(my_movies)
+
+    if (my_movies == -1):
+        print("No data due to failed request...\n\nCheck API key and API Endpoints")
+    else:
+
+        send_data(my_movies)
 
