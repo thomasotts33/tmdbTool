@@ -6,12 +6,7 @@ load_dotenv()
 api_key = os.getenv("API_KEY")
 
 url = "https://api.themoviedb.org/3/movie/"
-params = {
-    "api_key": api_key
-}
-
-keep_going = True
-
+params = {"api_key": api_key}
 
 
 def show_menu():
@@ -57,8 +52,6 @@ def send_data(my_movies):
         print(movie)
     print("\n--------------------------\n")
 
-
-while (keep_going == True):
 
     endpoint = show_menu()
 
