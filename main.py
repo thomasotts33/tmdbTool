@@ -48,18 +48,18 @@ def process_data(picked_route):
 
 def send_data(my_movies):
     print("\n---Results---\n--------------------------\n")
-    for movie in my_movies:
-        print(movie)
+    for index, movie in enumerate(my_movies, start=1):
+        print(f"{index}. {movie}")
     print("\n--------------------------\n")
 
-
+while True:
     endpoint = show_menu()
 
     if (endpoint is None):
-        break 
+            break 
 
     if (endpoint == "invalid"):
-        continue 
+            continue 
 
     complete_url = build_route(endpoint)
     my_movies = process_data(complete_url)
