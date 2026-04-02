@@ -15,26 +15,27 @@ keep_going = True
 
 
 def show_menu():
-    print("\n---Movie Data Available---\n1. Now Playing\n2. Popular\n3. Top Rated\n4. Upcoming")
-    value = int(input("\nPlease make a selection\n"))
-    if (value ==1):
+    print("\n---Movie Data Available---\n--------------------------\n1. Now Playing\n2. Popular\n3. Top Rated\n4. Upcoming\n5. Stop Script\n--------------------------\n")
+    value = input("Please make a selection\n")
+    if (value =="1"):
         route_value = "now_playing"
-    elif (value == 2):
+    elif (value == "2"):
         route_value = "popular"
-    elif (value == 3):
+    elif (value == "3"):
         route_value = "top_rated"
-    elif (value == 4):
+    elif (value == "4"):
         route_value = "upcoming"
-    elif (value == 5):
-        keep_going = False
+    elif (value == "5"):
+        route_value = None
         print("Stopping")
     else:
-        print("Womp womp")
+        print("Invalid input... make a selection 1 - 5")
+        route_value = "invalid"
     return route_value
 
 
 def build_route(endpoint):
-
+    
     picked_route = url + endpoint
 
     return picked_route
@@ -51,13 +52,22 @@ def process_data(picked_route):
     return my_movies
 
 def send_data(my_movies):
+    print("\n---Results---\n--------------------------\n")
     for movie in my_movies:
         print(movie)
+    print("\n--------------------------\n")
 
 
 while (keep_going == True):
 
     endpoint = show_menu()
+
+    if (endpoint is None):
+        break 
+
+    if (endpoint == "invalid"):
+        continue 
+
     complete_url = build_route(endpoint)
     my_movies = process_data(complete_url)
     send_data(my_movies)
