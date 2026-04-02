@@ -48,7 +48,7 @@ def process_data(picked_route):
 
         return my_movies
     except:
-        return -1
+        return None
 
 def send_data(my_movies):
     print("\n---Results---\n--------------------------\n")
@@ -68,7 +68,7 @@ while True:
     complete_url = build_route(endpoint)
     my_movies = process_data(complete_url)
 
-    if (my_movies == -1):
+    if (my_movies == None):
         print("No data due to failed request...\n\nCheck API key and API Endpoints")
     else:
 
