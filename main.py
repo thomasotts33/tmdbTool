@@ -10,55 +10,55 @@ params = {
     "api_key": api_key
 }
 
-keepGoing = True
+keep_going = True
 
 
 
-def show_Menu():
+def show_menu():
     print("\n---Movie Data Available---\n1. Now Playing\n2. Popular\n3. Top Rated\n4. Upcoming")
     value = int(input("\nPlease make a selection\n"))
     if (value ==1):
-        routeValue = "now_playing"
+        route_value = "now_playing"
     elif (value == 2):
-        routeValue = "popular"
+        route_value = "popular"
     elif (value == 3):
-        routeValue = "top_rated"
+        route_value = "top_rated"
     elif (value == 4):
-        routeValue = "upcoming"
+        route_value = "upcoming"
     elif (value == 5):
-        keepGoing = False
+        keep_going = False
         print("Stopping")
     else:
         print("Womp womp")
-    return routeValue
+    return route_value
 
 
-def Route(endPoint):
+def build_route(endpoint):
 
-    picked_route = url + endPoint
+    picked_route = url + endpoint
 
     return picked_route
 
-def process_Data(picked_route):
+def process_data(picked_route):
     response = requests.get(picked_route, params)
     movies = response.json()
-    myMovies = []
+    my_movies = []
 
     for movie in movies["results"]:
-        movieTitle = movie["title"]
-        myMovies.append(movieTitle)
+        movie_title = movie["title"]
+        my_movies.append(movie_title)
 
-    return myMovies
+    return my_movies
 
-def send_Data(myMovies):
-    for movie in myMovies:
+def send_data(my_movies):
+    for movie in my_movies:
         print(movie)
 
 
-while (keepGoing == True):
+while (keep_going == True):
 
-    endPoint = show_Menu()
-    complete_url = Route(endPoint)
-    myMovies = process_Data(complete_url)
-    send_Data(myMovies)
+    endpoint = show_menu()
+    complete_url = build_route(endpoint)
+    my_movies = process_data(complete_url)
+    send_data(my_movies)
 
